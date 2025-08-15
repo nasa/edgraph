@@ -248,6 +248,19 @@ This project is licensed under the [NASA Open Source Agreement](LICENSE).
 ## Citation
 
 If you use this knowledge graph in your research, please cite:
+
+### Repository Citation
+```bibtex
+@software{nasa_edgraph_2025,
+    author       = { {NASA Goddard Earth Sciences Data and Information Services Center (GES-DISC)} },
+    title        = { EDGraph: EOSDIS Knowledge Graph },
+    year         = 2025,
+    url          = { https://github.com/nasa/edgraph },
+    publisher    = { NASA }
+}
+```
+
+### Dataset Citation
 ```bibtex
 @misc {nasa_goddard_earth_sciences_data_and_information_services_center__(ges-disc)_2024,
     author       = { {NASA Goddard Earth Sciences Data and Information Services Center (GES-DISC)} },
