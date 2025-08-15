@@ -270,4 +270,12 @@ If you use this knowledge graph in your research, please cite:
     doi          = { 10.57967/hf/3463 },
     publisher    = { Hugging Face }
 }
-``` 
+```
+
+## Contact
+
+For any questions or further information, please contact:
+
+- **Armin Mehrabian**: armin.mehrabian@nasa.gov
+- **Irina Gerasimov**: irina.gerasimov@nasa.gov  
+- **Kendall Gilbert**: kendall.c.gilbert@nasa.gov 
