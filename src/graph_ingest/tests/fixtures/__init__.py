@@ -1,0 +1,1 @@
+"""Fixtures for EOSDIS Knowledge Graph tests.""" 

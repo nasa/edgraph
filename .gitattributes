@@ -1,0 +1,2 @@
+src/graph_ingest/data/*.csv filter=lfs diff=lfs merge=lfs -text
+src/graph_ingest/data/*.json filter=lfs diff=lfs merge=lfs -text

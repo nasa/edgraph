@@ -1,0 +1,74 @@
+version: '3.8'
+
+services:
+  neo4j:
+    image: neo4j:5.22.0-community
+    container_name: test-neo4j
+    environment:
+      NEO4J_AUTH: ${NEO4J_USER}/${NEO4J_PASSWORD}
+      NEO4J_PLUGINS: '["graph-data-science", "apoc"]'
+      NEO4J_ACCEPT_LICENSE_AGREEMENT: "yes"
+      NEO4J_apoc_export_file_enabled: 'true'
+      NEO4J_apoc_import_file_enabled: 'true'
+      NEO4J_apoc_import_file_use__neo4j__config: 'true'
+      NEO4J_dbms_security_procedures_unrestricted: 'gds.*,apoc.*'
+    ports:
+      - "127.0.0.1:7474:7474"
+      - "127.0.0.1:7687:7687"
+    volumes:
+      - neo4j_data:/data
+      - neo4j_logs:/logs
+      - neo4j_import:/var/lib/neo4j/import
+      - neo4j_plugins:/plugins
+    networks:
+      graphdb-network:
+        aliases:
+          - neo4j
+    healthcheck:
+      test: ["CMD", "neo4j-admin", "server", "status"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  tests:
+    build:
+      context: .
+      dockerfile: src/graph_ingest/tests/Dockerfile.test
+    container_name: test-runner
+    environment:
+      TEST_NEO4J_URI: bolt://test-neo4j:7687
+      TEST_NEO4J_USER: ${NEO4J_USER}
+      TEST_NEO4J_PASSWORD: ${NEO4J_PASSWORD}
+      TEST_ENV: integration
+      PYTHONPATH: /app
+    volumes:
+      - test_results:/app/test-results
+    command: >
+      bash -c "
+        echo 'Waiting for Neo4j to be ready...' &&
+        while ! nc -z test-neo4j 7687; do
+          sleep 1
+        done &&
+        echo 'Neo4j is ready!' &&
+        echo 'Running tests...' &&
+        cd /app &&
+        python -m pytest src/graph_ingest/tests/unit/ src/graph_ingest/tests/integration/ -v --cov=graph_ingest.ingest_scripts --cov-report=term-missing --cov-report=xml:/app/test-results/coverage.xml"
+    depends_on:
+      neo4j:
+        condition: service_healthy
+    networks:
+      graphdb-network:
+        aliases:
+          - test-runner
+
+networks:
+  graphdb-network:
+    driver: bridge
+
+volumes:
+  neo4j_data:
+  neo4j_logs:
+  neo4j_import:
+  neo4j_plugins:
+  test_results:

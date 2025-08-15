@@ -1,0 +1,31 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    curl \
+    netcat-openbsd \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements first for better caching
+COPY src/graph_ingest/tests/requirements_test.txt /app/requirements_test.txt
+
+# Install test requirements
+RUN pip install --no-cache-dir -r /app/requirements_test.txt
+
+# Copy the entire project
+COPY . /app/
+
+# Make sure all files have proper permissions
+RUN chmod -R 755 /app
+
+# Set PYTHONPATH for proper imports
+ENV PYTHONPATH=/app
+ENV PYTHONUNBUFFERED=1
+
+# Create directory for test results with proper permissions
+RUN mkdir -p /app/test-results && chmod -R 777 /app/test-results
+
+# Default command (this will be overridden by docker-compose)
+CMD ["python", "-m", "pytest", "src/graph_ingest/tests/", "-v", "--cov=graph_ingest.ingest_scripts", "--cov-report=term-missing"] 

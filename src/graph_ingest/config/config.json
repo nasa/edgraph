@@ -1,0 +1,15 @@
+{
+    "database": {
+        "uri": "bolt://neo4j:7687",
+        "user": "neo4j",
+        "password": "test"
+    },
+    "paths": {
+        "source_dois_directory": "/app/graph_ingest/data/eosdis_dois_02_19_2025.csv",
+        "dataset_metadata_directory": "/app/graph_ingest/data/collection_metadata",
+        "gcmd_sciencekeyword_directory": "/app/graph_ingest/data/gcmd_sciencekeywords_02_10_2025.csv",
+        "publications_metadata_directory": "/app/graph_ingest/data/publications_citing_datasets_01_15_2025.json",
+        "pubs_of_pubs": "/app/graph_ingest/data/publications_citing_publications_01_16_2025.json",
+        "log_directory": "/app/graph_ingest/logs/"
+    }
+}
