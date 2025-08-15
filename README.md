@@ -46,29 +46,27 @@ A comprehensive graph database connecting NASA's Earth Observing System Data and
    cd eosdis-knowledge-graph
    ```
 
-### 2. Create a `config.json` file at `src/graph_ingest/config/`. A working example of `config.json` already exist in `src/graph_ingest/config/` configured to work with sample data files. However, neo4j credentials need to be updated.
+2. Create a `config.json` file at `src/graph_ingest/config/`. A working example of `config.json` already exists in `src/graph_ingest/config/` configured to work with sample data files. However, neo4j credentials need to be updated.
 
+   with the following structure:
 
-with the following structure:
-
-```json
-{
-    "database": {
-        "uri": "bolt://<your_neo4j_host>:<bolt_port>",
-        "user": "<neo4j_username>",
-        "password": "<neo4j_password>"
-    },
-    "paths": {
-        "source_dois_directory": "<path_to_csv_listing_dataset_dois>",
-        "dataset_metadata_directory": "<path_to_directory_with_dataset_metadata_files>",
-        "gcmd_sciencekeyword_directory": "<path_to_csv_with_gcmd_science_keywords>",
-        "publications_metadata_directory": "<path_to_json_with_publication_metadata>",
-        "pubs_of_pubs": "<path_to_json_mapping_publications_citing_publications>",
-        "log_directory": "<path_to_directory_where_logs_will_be_saved>"
-    }
-}
-
-
+   ```json
+   {
+       "database": {
+           "uri": "bolt://<your_neo4j_host>:<bolt_port>",
+           "user": "<neo4j_username>",
+           "password": "<neo4j_password>"
+       },
+       "paths": {
+           "source_dois_directory": "<path_to_csv_listing_dataset_dois>",
+           "dataset_metadata_directory": "<path_to_directory_with_dataset_metadata_files>",
+           "gcmd_sciencekeyword_directory": "<path_to_csv_with_gcmd_science_keywords>",
+           "publications_metadata_directory": "<path_to_json_with_publication_metadata>",
+           "pubs_of_pubs": "<path_to_json_mapping_publications_citing_publications>",
+           "log_directory": "<path_to_directory_where_logs_will_be_saved>"
+       }
+   }
+   ```
 
 3. Start the application:
    ```bash
