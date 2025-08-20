@@ -37,6 +37,7 @@ A comprehensive graph database connecting NASA's Earth Observing System Data and
 
 - Docker and Docker Compose
 - Python 3.8 or higher (for local development)
+- Git LFS (Large File Storage) for data files
 
 ### Installation
 
@@ -45,6 +46,8 @@ A comprehensive graph database connecting NASA's Earth Observing System Data and
    git clone https://github.com/nasa/edgraph
    cd eosdis-knowledge-graph
    ```
+   
+   **Note**: This repository uses Git LFS for large data files. If you don't have Git LFS installed, you can install it from [git-lfs.github.com](https://git-lfs.github.com/). The data files will be automatically downloaded when you clone the repository.
 
 2. Create a `config.json` file at `src/graph_ingest/config/`. A working example of `config.json` already exists in `src/graph_ingest/config/` configured to work with sample data files. However, neo4j credentials need to be updated.
 
